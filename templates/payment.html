@@ -143,7 +143,6 @@ button:hover {
                 <div class="stripe-form-row" id="creditCard">
                     <label for="card-element" id="stripeBtnLabel">Credit or debit card</label>
                     <div id="card-element" class="StripeElement StripeElement--empty">
-                        <!-- Stripe Element will be inserted here -->
                     </div>
                 </div>
                 <div class="stripe-form-row">
@@ -171,7 +170,7 @@ button:hover {
 
 
 
-<script nonce="">  // Create a Stripe client.
+<script nonce="">  
   var stripe = Stripe('{{STRIPE_PUBLIC_KEY}}');
 
   // Create an instance of Elements.

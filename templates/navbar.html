@@ -1,11 +1,17 @@
 {% load cart_template_tags %} {% load static %}
+<style>
+  ul.navbar-nav {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+</style>
 <nav
   class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar"
 >
   <div class="container">
-    <!-- Brand -->
     <a class="navbar-brand waves-effect" href="/">
-      <strong class="blue-text">DJe-commerce</strong>
+      <strong class="blue-text">E-commerce site</strong>
     </a>
 
     <ul class="navbar-nav me-auto mb-2 mb-lg-0"> 
@@ -13,7 +19,6 @@
         <a class="nav-link" href="{% url 'core:checkout' %}">Checkout</a>
       </li>
     </ul>
-    <!-- Collapse -->
     <button
       class="navbar-toggler"
       type="button"
@@ -26,22 +31,16 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Links -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    
-      <ul class="navbar-nav mr-auto">
-      
-      </ul>
+      <ul class="navbar-nav mr-auto"></ul>
 
       {% if request.user.is_authenticated %}
       <div class="d-flex justify-content-center align-items-center">
-        <!-- Cart Icon -->
         <a class="nav-link me-3 position-relative" href="{% url 'core:order-summary' %}">
           <i
             class="fas fa-shopping-cart"
             style="font-size: 17px; color: blue"
           ></i>
-          <!-- Badge -->
           <span
             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
             style="
@@ -54,7 +53,7 @@
           </span>
         </a>
       </div>
-      <ul class="navbar-nav nav-flex-icons">
+      <ul class="navbar-nav nav-flex-icon">
         <li class="nav-item">
           <a
             class="nav-link waves-effect"
@@ -63,10 +62,12 @@
             <span class="clearfix d-none d-sm-inline-block"> Logout </span>
           </a>
         </li>
-        {% else %}
+      </ul>
+      {% else %}
+      <ul class="navbar-nav nav-flex-icon">
         <li class="nav-item">
           <a
-            class="nav-link waves-effect"
+            class="nav-link"
             href="{% url 'core:account_login' %}"
           >
             <span class="clearfix d-none d-sm-inline-block"> Login </span>
@@ -80,8 +81,8 @@
             <span class="clearfix d-none d-sm-inline-block"> Signup </span>
           </a>
         </li>
-        {% endif %}
       </ul>
+      {% endif %}
     </div>
   </div>
 </nav>
