@@ -244,29 +244,22 @@ class PaymentView(View):
             return redirect("/")
 
         except stripe.error.RateLimitError as e:
-            # Too many requests made to the API too quickly
             messages.warning(self.request, "Rate limit error")
             return redirect("/")
 
         except stripe.error.InvalidRequestError as e:
-            # Invalid parameters were supplied to Stripe's API
             messages.warning(self.request, "Invalid parameters")
             return redirect("/")
 
         except stripe.error.AuthenticationError as e:
-            # Authentication with Stripe's API failed
-            # (maybe you changed API keys recently)
             messages.warning(self.request, "Not authenticated")
             return redirect("/")
 
         except stripe.error.APIConnectionError as e:
-            # Network communication with Stripe failed
             messages.warning(self.request, "Network error")
             return redirect("/")
 
         except stripe.error.StripeError as e:
-            # Display a very generic error to the user, and maybe send
-            # yourself an email
             messages.warning(self.request, "Something went wrong. You were not charged. Please try again.")
             return redirect("/")
 
@@ -280,6 +273,13 @@ class HomeView(ListView):
     model = Item
     paginate_by = 4
     template_name = "home.html"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(title__icontains=query)
+        return queryset
 
 
 class OrderSummaryView(LoginRequiredMixin, View):
